@@ -1,9 +1,9 @@
-num  = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
+num  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 num_s = %w(zero one two three four five six seven eight nine)
 
 num.zip(num_s).each do |n, s|
   define_method s do |calc=nil|
-    calc.nil? ? n : calc.(n)
+    calc.nil? ? n.to_f : calc.(n)
   end
 end
 
@@ -22,3 +22,18 @@ describe "calculations" do
     five(plus(two)).must_equal seven
   end
 end
+
+#Another smart solution
+# class Object
+#   %w[zero one two three four five six seven eight nine].each_with_index do |name, n|
+#     define_method(name) do |args = nil|
+#       args ? n.send(*args) : n.to_f
+#     end
+#   end
+  
+#   %w[plus + minus - times * divided_by /].each_slice(2) do |name, symbol|
+#     define_method(name) do |n|
+#       [symbol, n]
+#     end
+#   end
+# end
