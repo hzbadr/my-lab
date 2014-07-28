@@ -21,6 +21,7 @@ def tree_by_levels(node)
     levels << n.left if n.left
     levels << n.right if n.right
   end 
+
  levels.map(&:value)
 end
 
