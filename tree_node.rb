@@ -14,12 +14,14 @@ end
 
 # return the array containing the tree levels, from root to last level.
 def tree_by_levels(node)
-  nodes = [[node.left, node.right]]
-  nodes.each do |row|
-    break if row.compact.empty?
-    nodes << row.collect{|n| [n.left, n.right] unless n.nil?}.flatten
+  return [] if node.nil?
+
+  levels = [node]
+  levels.each do |n|
+    levels << n.left if n.left
+    levels << n.right if n.right
   end 
-  [node, *nodes.flatten.compact].map(&:value)
+ levels.map(&:value)
 end
 
 
