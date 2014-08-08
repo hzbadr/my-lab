@@ -13,14 +13,16 @@ def top_3_words(text)
       word += text[i].downcase
     end
   end
-  
+  puts words
   top_values = words.values.sort.reverse.uniq[0...3]
+  return [words.values[0]] if top_values.length == 1
   words = words.select{|k, v| top_values.include? v }
-  words.sort_by{|k, v| -v}.map(&:first)[0...3]
+  words.sort_by{|k, v| -v}.map(&:first)
 end
 
-top_3_words("a a A b b  c c c d d e")
-top_3_words(" a a bb bb")
+top_3_words(", e .. ").inspect
+# top_3_words("a a A b b  c c c d d e")
+# top_3_words(" a a bb bb cc cc dd dd")
 # top_3_words("  //wont won't won't")
 
 require 'minitest/spec'
@@ -28,6 +30,6 @@ require 'minitest/autorun'
 
 describe "top_3_words" do
   it "passes" do
-    # top_3_words("a a a b b b ").must_equal 2149583361
+    # top_3_words(" a a bb bb cc cc dd dd").must_equal ["a", "bb", "cc", "dd"]
   end
 end
